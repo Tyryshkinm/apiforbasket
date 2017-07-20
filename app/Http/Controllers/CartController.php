@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    /**
+     * Controller of adding products to the cart
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function addProductToCart(Request $request)
     {
         $product_id = $request->input('product_id');
@@ -37,6 +43,13 @@ class CartController extends Controller
         }
     }
 
+    /**
+     * Controller of deleting one quantity product from cart
+     *
+     * @param Request $request
+     * @param $product_id - the product id, that need to delete
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function deleteProductFromCart(Request $request, $product_id)
     {
         $cart = Cart::select('products')
@@ -58,13 +71,19 @@ class CartController extends Controller
         }
     }
 
+    /**
+     * Controller of getting list of products in the cart
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getProductsInCart(Request $request)
     {
         $cart = Cart::select('products', 'total_sum', 'products_count')
                     ->where('token', $request->input('token'))
                     ->first();
         $products = unserialize($cart->products);
-        if ($products === array()) {
+        if ($products == array()) {
             return response()->json(['message' => 'Cart is empty'],400);
         } else {
             return response()->json([

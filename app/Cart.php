@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
+    /**
+     * Model of adding products to cart
+     *
+     * @param $request
+     * @param $product_id - id of product that need add to cart
+     * @param $quantity - quantity of product that need add to cart
+     */
     public function addProduct($request, $product_id, $quantity)
     {
         $cart = Cart::select('products', 'total_sum', 'products_count')
@@ -52,6 +59,14 @@ class Cart extends Model
             );
     }
 
+    /**
+     * Model of deleting one quantity product from cart
+     *
+     * @param $request
+     * @param $products - current list of products in the cart
+     * @param $product_id - the product id, that need to delete
+     * @return int|string
+     */
     public function deleteProduct($request, $products, $product_id)
     {
         $cart = Cart::select('total_sum', 'products_count')
@@ -66,7 +81,7 @@ class Cart extends Model
                 $key = 'such id not found';
             }
         }
-        if ($key == 'such id not found') {
+        if ($key === 'such id not found') {
             return $key;
         } else {
             if ($products[$key]['quantity'] != 1) {
@@ -87,5 +102,6 @@ class Cart extends Model
                 'products_count' => $productsCount
             ]
         );
+
     }
 }
