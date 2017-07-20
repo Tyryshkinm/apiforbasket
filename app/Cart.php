@@ -16,8 +16,8 @@ class Cart extends Model
     public function addProduct($request, $product_id, $quantity)
     {
         $cart = Cart::select('products', 'total_sum', 'products_count')
-            ->where('token', $request->input('token'))
-            ->first();
+                    ->where('token', $request->input('token'))
+                    ->first();
         $product = Product::find($product_id);
         $products = unserialize($cart->products);
         $productsCount = $cart->products_count;
