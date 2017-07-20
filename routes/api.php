@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware'=>'check.token'], function () {
+    Route::get('products', 'ProductController@getProducts');
+    Route::post('cart', 'CartController@addProductToCart');
+    Route::delete('cart/{product_id}', 'CartController@deleteProductFromCart');
+    Route::get('cart', 'CartController@getProductsInCart');
 });

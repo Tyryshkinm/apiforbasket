@@ -14,3 +14,4 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::any('adminer', '\Miroc\LaravelAdminer\AdminerAutologinController@index');

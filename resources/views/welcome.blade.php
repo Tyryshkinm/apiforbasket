@@ -79,7 +79,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    API for basket
+                    API for cart
                 </div>
 
                 <div class="links"></div>
